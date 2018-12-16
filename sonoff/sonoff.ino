@@ -607,7 +607,11 @@ void MqttDataHandler(char* topic, byte* data, unsigned int data_len)
       //   We also need at least 3 chars to make a valid version number string.
       if (((1 == data_len) && (1 == payload)) || ((data_len >= 3) && NewerVersion(dataBuf))) {
         ota_state_flag = 3;
-        snprintf_P(mqtt_data, sizeof(mqtt_data), "{\"%s\":\"" D_JSON_VERSION " %s " D_JSON_FROM " %s\"}", command, my_version, GetOtaUrl(stemp1, sizeof(stemp1)));
+
+//        snprintf_P(mqtt_data, sizeof(mqtt_data), "{\"%s\":\"" D_JSON_VERSION " %s " D_JSON_FROM " %s\"}", command, my_version, Settings.ota_url);
+//        snprintf_P(mqtt_data, sizeof(mqtt_data), "{\"%s\":\"" D_JSON_VERSION " %s " D_JSON_FROM " %s\"}", command, my_version, GetOtaUrl(stemp1, sizeof(stemp1)));
+        snprintf_P(mqtt_data, sizeof(mqtt_data), "{\"%s\":\"" D_JSON_VERSION " %s " D_JSON_FROM " %s\"}", command, "6.4.0-CH", GetOtaUrl(stemp1, sizeof(stemp1))); //CH
+
       } else {
         snprintf_P(mqtt_data, sizeof(mqtt_data), "{\"%s\":\"" D_JSON_ONE_OR_GT "\"}", command, my_version);
       }
@@ -2629,8 +2633,10 @@ void setup(void)
   if (VERSION & 0xff) {  // Development or patched version 6.3.0.10
     snprintf_P(my_version, sizeof(my_version), PSTR("%s.%d"), my_version, VERSION & 0xff);
   }
+
   char code_image[20];
   snprintf_P(my_image, sizeof(my_image), PSTR("(%s)"), GetTextIndexed(code_image, sizeof(code_image), CODE_IMAGE, kCodeImage));
+
 
   SettingsLoad();
   SettingsDelta();
