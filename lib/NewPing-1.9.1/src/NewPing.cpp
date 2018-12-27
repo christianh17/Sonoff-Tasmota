@@ -91,7 +91,7 @@ unsigned long NewPing::ping_in(unsigned int max_cm_distance) {
 }
 
 
-unsigned long NewPing::ping_median(uint8_t it, unsigned int max_cm_distance) {
+unsigned long NewPing::ping_median(uint8_t it, unsigned int max_cm_distance, char* int_log_data) {
 	unsigned int uS[it], last;
 	uint8_t j, i = 0;
 	unsigned long t;
@@ -110,11 +110,14 @@ unsigned long NewPing::ping_median(uint8_t it, unsigned int max_cm_distance) {
 			i++;                       // Move to next ping.
 		} else it--;                   // Ping out of range, skip and don't include as part of median.
 
-		if (i < it && micros() - t < PING_MEDIAN_DELAY)
+  		if (i < it && micros() - t < PING_MEDIAN_DELAY)
 			delay((PING_MEDIAN_DELAY + t - micros()) / 1000); // Millisecond delay between pings.
 
 	}
-	return (uS[it >> 1]); // Return the ping distance median.
+//	sprintf (int_log_data,"Werte: %u %u %u %u %u %u %u %u %u %u",uS[0]/ US_ROUNDTRIP_CM, uS[1]/ US_ROUNDTRIP_CM,uS[2]/ US_ROUNDTRIP_CM, uS[3]/ US_ROUNDTRIP_CM,
+//	uS[4]/ US_ROUNDTRIP_CM, uS[5]/ US_ROUNDTRIP_CM,uS[6]/ US_ROUNDTRIP_CM, uS[7]/ US_ROUNDTRIP_CM,uS[8]/ US_ROUNDTRIP_CM,uS[9]/ US_ROUNDTRIP_CM);
+	return (uS[1]);//(uS[it >> 1]); // Return the ping distance median. //CH
+	return (uS[it >> 1]); // Return the ping distance median. //CH	//wieder Original und den Median nehmen
 }
 
 

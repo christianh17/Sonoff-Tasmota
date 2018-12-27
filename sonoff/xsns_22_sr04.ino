@@ -48,7 +48,9 @@ const char HTTP_SNS_DISTANCE[] PROGMEM =
 
 void Sr04Show(boolean json)
 {
-  distance = (real64_t)(sonar->ping_median(5))/ US_ROUNDTRIP_CM;
+  distance = (real64_t)(sonar->ping_median(10,300,log_data))/ US_ROUNDTRIP_CM; // CH auf 10 erhöht (war 5)
+//    AddLog(LOG_LEVEL_DEBUG);
+  //distance = (real64_t)(sonar->ping_cm(300)); // nur noch ein Ping
 
   if (distance != 0) {                // Check if read failed
     char distance_chr[10];

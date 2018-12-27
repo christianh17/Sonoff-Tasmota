@@ -224,7 +224,7 @@
 			unsigned int ping(unsigned int max_cm_distance = 0);
 			unsigned long ping_cm(unsigned int max_cm_distance = 0);
 			unsigned long ping_in(unsigned int max_cm_distance = 0);
-			unsigned long ping_median(uint8_t it = 5, unsigned int max_cm_distance = 0);
+			unsigned long ping_median(uint8_t it = 5, unsigned int max_cm_distance = 0, char* int_log_data = 0); //CH
 			static unsigned int convert_cm(unsigned int echoTime);
 			static unsigned int convert_in(unsigned int echoTime);
 	#if TIMER_ENABLED == true
